@@ -7,6 +7,7 @@ import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.inte
 import { UserDto } from './dtos/user-dto';
 
 @Controller('auth')
+@Serialize(UserDto)
 export class UsersController {
     constructor(private usersService: UsersService){}
     @Post('/signup')
@@ -20,7 +21,6 @@ export class UsersController {
         return await this.usersService.findAll()
     }
 
-    @Serialize(UserDto)
     @Get("/users/:userId")
     async getUserById(@Param("userId", ParseIntPipe) userId: number ){
         const user = await this.usersService.findById(userId)

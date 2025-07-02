@@ -13,7 +13,7 @@ import { UserDto } from "src/users/dtos/user-dto";
  * @param dto 
  * @returns 
  */
-export function Serialize(dto: any){
+export function Serialize(dto: new (...args:any[]) => {}){
     return UseInterceptors(new SerializeInterceptor(dto))
 }
 
@@ -34,7 +34,7 @@ export class SerializeInterceptor implements NestInterceptor{
              * This works on observables, modifying it.
              */
             map((data:any)=>{
-               return plainToInstance(dto, data, {
+               return plainToInstance(this.dto, data, {
                 excludeExtraneousValues: true
                })
             })
