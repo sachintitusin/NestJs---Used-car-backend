@@ -7,12 +7,17 @@ export class UsersService {
     constructor(private prisma: PrismaService){}
 
     createUser(email: string, password: string){
-        return this.prisma.user.create({
-            data: {
-                email,
-                password
-            }
-        })
+        try{
+            return this.prisma.user.create({
+                data: {
+                    email,
+                    password
+                }
+            })
+        }
+        catch(error){
+            throw Error("Not working")
+        }
     }
 
     async findAll(){
